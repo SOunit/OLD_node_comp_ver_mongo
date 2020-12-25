@@ -3,7 +3,7 @@ const Product = require('../models/product');
 const TIME_TO_WAIT = 3000;
 
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
+  Product.fetchAll()
     .then((products) => {
       res.render('./shop/product-list', {
         pageTitle: 'test',
@@ -157,7 +157,7 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.findAll()
+  Product.fetchAll()
     .then((products) => {
       res.render('./shop/index', {
         pageTitle: 'Index',
