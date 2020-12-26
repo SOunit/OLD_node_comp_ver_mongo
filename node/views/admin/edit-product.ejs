@@ -9,7 +9,7 @@
     <main>
         <form 
             class="product-form" 
-            action="<%= editing ? '/admin/edit-product/' + prod.id : '/admin/add-product' %>" 
+            action="<%= editing ? '/admin/edit-product/' + prod._id : '/admin/add-product' %>" 
             method="POST">
             <div class="form-control">
                 <label for="title">Title</label>
@@ -28,7 +28,7 @@
                 <textarea name="description" id="description" rows="5"><%= (editing ? prod.description : "") %></textarea>
             </div>
             <% if(editing){ %>
-                <input type="hidden" name="productId" value="<%= prod.id %>">
+                <input type="hidden" name="productId" value="<%= prod._id %>">
             <% } %>
 
             <button class="btn" type="submit"><%= editing ? "Update Product" : "Add Product" %></button>
