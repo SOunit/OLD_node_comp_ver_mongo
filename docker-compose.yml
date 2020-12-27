@@ -18,6 +18,7 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./node
+    restart: always
     volumes:
       - ./app/node_modules
       - ./node:/app
