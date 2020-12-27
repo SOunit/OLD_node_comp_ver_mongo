@@ -96,6 +96,7 @@ exports.postAddProduct = (req, res, next) => {
     null,
     req.user._id
   );
+  console.log(product, 'postAddProduct');
   product
     .save()
     .then((result) => {
