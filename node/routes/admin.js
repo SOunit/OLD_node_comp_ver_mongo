@@ -9,17 +9,15 @@ const router = express.Router();
 router.get('/add-product', adminController.getAddProduct);
 
 // /admin/products => GET
-// router.get('/products', adminController.getAdminProducts);
+router.get('/products', adminController.getAdminProducts);
 
 // /admin/add-product => POST
 router.post('/add-product', adminController.postAddProduct);
 
-// router.get('/edit-product/:productId', adminController.getEditProduct);
+router.get('/edit-product/:productId', adminController.getEditProduct);
 
-// router.post('/edit-product/:productId', adminController.postEditProduct);
+router.post('/edit-product/:productId', adminController.postEditProduct);
 
-// router.post('/delete-product', adminController.postDeleteProduct);
-
-// router.delete('/delete-product/:productId', adminController.deleteProduct);
+router.post('/delete-product', adminController.postDeleteProduct);
 
 module.exports = router;

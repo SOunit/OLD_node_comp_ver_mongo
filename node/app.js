@@ -1,9 +1,11 @@
+const mongodb = require('mongodb');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error.js');
 const mongoConnect = require('./util/database').mongoConnect;
+const User = require('./models/user');
 
 const app = express();
 
@@ -18,7 +20,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  next();
+  User.findById('5fe8628a454aec2a736041c7')
+    .then((user) => {
+      console.log('app.js', user);
+      req.user = new User(user.name, user.email, user.cart, user._id);
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.use('/admin', adminRoutes);

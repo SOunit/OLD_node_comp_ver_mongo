@@ -4,11 +4,12 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const mongoConnect = (callback) => {
+  // mongodb://[service name]:[port=27017]/
   // mongodb://[root_user_name]:[root_user_pass]@[service name]:[port=27017]/
   MongoClient.connect('mongodb://test:pass@mongo:27017/')
     .then((client) => {
       console.log('connected!');
-      _db = client.db();
+      _db = client.db('shop');
       callback();
     })
     .catch((err) => {
