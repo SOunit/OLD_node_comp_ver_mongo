@@ -2,8 +2,8 @@ const mongodb = require('mongodb');
 const getDb = require('../util/database').getDb;
 
 class User {
-  constructor(username, email, cart, id) {
-    this.username = username;
+  constructor(name, email, cart, id) {
+    this.name = name;
     this.email = email;
     this.cart = cart;
     this._id = id;
@@ -81,17 +81,30 @@ class User {
 
   addOrder() {
     const db = getDb();
-    return db
-      .collection('orders')
-      .insertOne(this.cart)
-      .then((result) => {
-        this.cart = [];
-        db.collection('users').updateOne(
-          { _id: new mongodb.ObjectID(this._id) },
-          { $set: { cart: { items: [] } } }
-        );
-      });
+    return this.getCart().then((products) => {
+      const order = {
+        items: products,
+        user: {
+          _id: mongodb.ObjectID(this._id),
+          name: this.name,
+        },
+      };
+      return db
+        .collection('orders')
+        .insertOne(order)
+        .then((result) => {
+          this.cart = [];
+          return db
+            .collection('users')
+            .updateOne(
+              { _id: new mongodb.ObjectID(this._id) },
+              { $set: { cart: { items: [] } } }
+            );
+        });
+    });
   }
+
+  getOrders() {}
 
   static findById(userId) {
     const db = getDb();
